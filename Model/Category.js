@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     "category",
     {
       UUID: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       title: {
@@ -12,9 +13,6 @@ module.exports = function(sequelize, DataTypes) {
       },
       descriptiom: {
         type: Sequelize.TEXT
-      },
-      parent_id: {
-        type: Sequelize.STRING
       }
     },
     { freezeTableName: true }

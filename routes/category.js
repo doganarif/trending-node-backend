@@ -3,10 +3,32 @@ var router = express.Router();
 var Sequelize = require("sequelize");
 var Op = Sequelize.Op;
 
-const { Category, TownCategory, Subcategory } = require("../database");
-/* GET home page. */
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+const { Category, Product } = require("../database");
+
+router.get("/", async function(req, res, next) {
+  Category.findAll({
+    where: {
+      parent_id: null
+    },
+    include: [
+      {
+        model: Category
+      },
+      {
+        model: Product
+      }
+    ]
+  }).then(data => {
+    console.log(data);
+    res.send(data);
+  })
+  .catch((err) => {
+    console.log(err)
+    res.json({
+      status: 'error',
+      message: 'check logs'
+    })
+  })
 });
 
 router.get("/:id", (req, res) => {

@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 const { City, Town, Category, Product, sequelize } = require("../database");
 /* GET home page. */
-const Sequelize = require("sequelize");
-router.get("/", function(req, res, next) {
+
+router.get("/", function(req, res) {
   res.end();
 });
 

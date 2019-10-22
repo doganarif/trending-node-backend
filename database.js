@@ -9,7 +9,8 @@ const TownModel = require("./Model/Town");
 const UserModel = require("./Model/User");
 const CardModel = require("./Model/Card");
 const CardProductModel = require("./Model/CardProduct");
-
+const PhotoModel = require("./Model/Photo");
+const CompanyPhotoModel = require("./Model/CompanyPhoto");
 const sequelize = new Sequelize("school_system", "root", "afoafoafo1A.", {
   host: "localhost",
   dialect: "mysql"
@@ -28,6 +29,8 @@ sequelize
     console.log("Cannot connected", err);
   });
 
+const CompanyPhoto = CompanyPhotoModel(sequelize, Sequelize);
+const Photo = PhotoModel(sequelize, Sequelize);
 const Category = CategoryModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
 const City = CityModel(sequelize, Sequelize);
@@ -37,9 +40,10 @@ const Town = TownModel(sequelize, Sequelize);
 const Card = CardModel(sequelize, Sequelize);
 const CardProduct = CardProductModel(sequelize, Sequelize);
 
-Category.hasMany(Product, { foreignKey: "parent_id", sourceKey: "UUID" });
-
-// Subcategory.belongsTo(Category, { foreignKey: "parent_id", targetKey: "UUID" });
+Company.hasMany(CompanyPhoto, { foreignKey: "company_id" });
+Product.hasMany(Photo, { foreignKey: "product_id" });
+Category.hasMany(Category, { foreignKey: "parent_id" });
+Category.hasMany(Product, { foreignKey: "parent_id" });
 Town.belongsTo(City, { foreignKey: "city_id" });
 Product.belongsTo(Company, { foreignKey: "company_id" });
 CardProduct.belongsTo(Card, { foreignKey: "card_id" });
@@ -49,6 +53,8 @@ Product.belongsTo(Town, { foreignKey: "town_id" });
 module.exports = {
   sequelize,
   Category,
+  CompanyPhoto,
+  Photo,
   User,
   City,
   Company,
