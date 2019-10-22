@@ -1,18 +1,12 @@
 const Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
-  return (Company = sequelize.define(
-    "company",
+  return (Comment = sequelize.define(
+    "comment",
     {
       title: {
         type: Sequelize.STRING
       },
-      phone: {
-        type: Sequelize.STRING
-      },
-      address: {
-        type: Sequelize.STRING
-      },
-      description: {
+      descriptiom: {
         type: Sequelize.TEXT
       }
     },

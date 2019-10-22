@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const { Category, Product } = require("../database");
+const { Category, Product, Card, Company, Photo } = require("../database");
 
 router.get("/", async function(req, res, next) {
   Category.findAll({
@@ -38,10 +38,34 @@ router.get("/", async function(req, res, next) {
     });
 });
 
-router.get("/:id", (req, res) => {
-  Category.findOne({
+router.get("/products/:id", (req, res) => {
+  Product.findAll({
     where: {
-      id: req.params.id
+      parent_id: req.params.id
+    },
+    include: [
+      {
+        model: Card
+      },
+      {
+        model: Company
+      },
+      {
+        model: Photo
+      }
+    ]
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
+  });
+});
+
+router.get("/detail/:id", (req, res) => {
+  Category.findAll({
+    where: {
+      parent_id: req.params.id
     },
     include: [
       {

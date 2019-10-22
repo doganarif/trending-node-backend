@@ -1,12 +1,12 @@
 var express = require("express");
 var router = express.Router();
-const { Product, Photo } = require("../database");
-/* GET home page. */
+const { Product, Photo, Card, Company } = require("../database");
+
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/detail/:id", (req, res) => {
   Product.findOne({
     where: {
       id: req.params.id
@@ -14,6 +14,12 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Photo
+      },
+      {
+        model: Card
+      },
+      {
+        model: Company
       }
     ]
   }).then(data => {
@@ -24,6 +30,24 @@ router.get("/:id", (req, res) => {
       });
     }
     res.json(data);
+  });
+});
+
+router.get("/featured", (req, res) => {
+  Product.findAll({
+    where: {
+      is_featured: true
+    },
+    include: [
+      {
+        model: Photo
+      }
+    ]
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
   });
 });
 
