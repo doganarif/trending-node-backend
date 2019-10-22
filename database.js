@@ -45,7 +45,7 @@ Product.hasMany(Photo, { foreignKey: "product_id" });
 Category.hasMany(Category, { foreignKey: "parent_id" });
 Category.hasMany(Product, { foreignKey: "parent_id" });
 Town.belongsTo(City, { foreignKey: "city_id" });
-Product.belongsTo(Company, { foreignKey: "company_id" });
+Company.hasMany(Product, { foreignKey: "company_id" });
 CardProduct.belongsTo(Card, { foreignKey: "card_id" });
 CardProduct.belongsTo(Product, { foreignKey: "prod_id" });
 Product.belongsTo(Town, { foreignKey: "town_id" });

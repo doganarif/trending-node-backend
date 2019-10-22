@@ -3,10 +3,6 @@ module.exports = function(sequelize, DataTypes) {
   return (Card = sequelize.define(
     "card",
     {
-      UUID: {
-        type: Sequelize.TEXT,
-        unique: true,
-      },
       title: {
         type: Sequelize.STRING
       },

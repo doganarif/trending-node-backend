@@ -13,6 +13,9 @@ module.exports = function(sequelize, DataTypes) {
         type: Sequelize.BOOLEAN,
         default: false
       },
+      price: {
+        type: Sequelize.STRING
+      }
     },
     { freezeTableName: true }
   ));
