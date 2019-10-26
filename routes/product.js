@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const { Product, Photo, Card, Company } = require("../database");
+const { Product, Photo, Card, User, Company, Comment } = require("../database");
 
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
@@ -20,6 +20,15 @@ router.get("/detail/:id", (req, res) => {
       },
       {
         model: Company
+      },
+      {
+        model: Comment,
+        include: [
+          {
+            model: User,
+            attributes: ["username"]
+          }
+        ]
       }
     ]
   }).then(data => {
