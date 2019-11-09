@@ -1,10 +1,26 @@
 var express = require("express");
 var router = express.Router();
-const { City, Town, Category, Product, sequelize } = require("../database");
+const { City, Town, Ilce, Sehir, Mahalle } = require("../database");
 /* GET home page. */
 
 router.get("/", function(req, res) {
-  res.end();
+  Sehir.findAll({
+    where: {
+      sehir_id: 1
+    },
+    include: [
+      {
+        model: Ilce
+      }
+    ]
+  })
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
+      res.end();
+      console.log(err);
+    });
 });
 
 router.get("/get_cities", (req, res) => {

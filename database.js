@@ -12,6 +12,11 @@ const CardProductModel = require("./Model/CardProduct");
 const PhotoModel = require("./Model/Photo");
 const CompanyPhotoModel = require("./Model/CompanyPhoto");
 const CommentModel = require("./Model/Comment");
+const SehirModel = require("./Model/Sehir");
+const IlceModel = require("./Model/Ilce");
+const MahalleModel = require("./Model/Mahalle");
+const SokakModel = require("./Model/Sokak");
+
 const sequelize = new Sequelize("school_system", "root", "afoafoafo1A.", {
   host: "localhost",
   dialect: "mysql"
@@ -35,27 +40,57 @@ const CompanyPhoto = CompanyPhotoModel(sequelize, Sequelize);
 const Photo = PhotoModel(sequelize, Sequelize);
 const Category = CategoryModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
-const City = CityModel(sequelize, Sequelize);
 const Company = CompanyModel(sequelize, Sequelize);
 const Product = ProductModel(sequelize, Sequelize);
-const Town = TownModel(sequelize, Sequelize);
 const Card = CardModel(sequelize, Sequelize);
 const CardProduct = CardProductModel(sequelize, Sequelize);
+const Sehir = SehirModel(sequelize, Sequelize);
+const Ilce = IlceModel(sequelize, Sequelize);
+const Mahalle = MahalleModel(sequelize, Sequelize);
+const Sokak = SokakModel(sequelize, Sequelize);
+
+Sehir.hasMany(Ilce, {
+  foreignKey: "ilce_sehirkey",
+  sourceKey: "sehir_key",
+  allowNull: false
+});
+Ilce.belongsTo(Sehir, {
+  foreignKey: "ilce_sehirkey",
+  targetKey: "sehir_key",
+  allowNull: false
+});
+Ilce.hasMany(Mahalle, {
+  foreignKey: "mahalle_ilcekey",
+  sourceKey: "ilce_key",
+  allowNull: false
+});
+Mahalle.belongsTo(Ilce, {
+  foreignKey: "mahalle_ilcekey",
+  targetKey: "ilce_key",
+  allowNull: false
+});
+
+Mahalle.hasMany(Sokak, {
+  foreignKey: "sokak_cadde_mahallekey",
+  sourceKey: "mahalle_key",
+  allowNull: false
+});
+Sokak.belongsTo(Mahalle, {
+  foreignKey: "sokak_cadde_mahallekey",
+  targetKey: "mahalle_key",
+  allowNull: false
+});
 
 Product.belongsToMany(Card, { through: CardProduct });
 Card.belongsToMany(Product, { through: CardProduct });
 Comment.belongsTo(User, { foreignKey: "user_id" });
 User.hasMany(Comment, { foreignKey: "user_id" });
-Comment.belongsTo(Product, { foreignKey: "product_id" });
-Product.hasMany(Comment, { foreignKey: "product_id" });
+Comment.belongsTo(Company, { foreignKey: "company_id" });
+Company.hasMany(Comment, { foreignKey: "company_id" });
 Company.hasMany(CompanyPhoto, { foreignKey: "company_id" });
-Product.hasMany(Photo, { foreignKey: "product_id" });
 Category.hasMany(Category, { foreignKey: "parent_id" });
 Category.hasMany(Product, { foreignKey: "parent_id" });
-Town.belongsTo(City, { foreignKey: "city_id" });
 Company.hasMany(Product, { foreignKey: "company_id" });
-Product.belongsTo(Company, { foreignKey: "company_id" });
-Product.belongsTo(Town, { foreignKey: "town_id" });
 
 module.exports = {
   sequelize,
@@ -63,11 +98,13 @@ module.exports = {
   CompanyPhoto,
   Photo,
   User,
-  City,
   Company,
   Comment,
   Product,
   Card,
-  Town,
-  CardProduct
+  CardProduct,
+  Sehir,
+  Ilce,
+  Sokak,
+  Mahalle
 };
