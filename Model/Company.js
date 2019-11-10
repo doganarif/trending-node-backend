@@ -14,6 +14,16 @@ module.exports = function(sequelize, DataTypes) {
       },
       description: {
         type: Sequelize.TEXT
+      },
+      description: {
+        type: Sequelize.TEXT
+      },
+      is_featured: {
+        type: Sequelize.BOOLEAN,
+        default: false
+      },
+      price: {
+        type: Sequelize.STRING
       }
     },
     { freezeTableName: true }

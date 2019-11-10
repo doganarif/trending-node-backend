@@ -1,19 +1,9 @@
 var express = require("express");
 var router = express.Router();
-const { City, Town, Ilce, Sehir, Mahalle } = require("../database");
-/* GET home page. */
+const { Ilce, Sehir, Sokak, Mahalle } = require("../database");
 
-router.get("/", function(req, res) {
-  Sehir.findAll({
-    where: {
-      sehir_id: 1
-    },
-    include: [
-      {
-        model: Ilce
-      }
-    ]
-  })
+router.get("/get_sehir", function(req, res) {
+  Sehir.findAll() 
     .then(data => {
       res.json(data);
     })
@@ -23,35 +13,43 @@ router.get("/", function(req, res) {
     });
 });
 
-router.get("/get_cities", (req, res) => {
-  City.findAll().then(data => {
-    res.json({
-      status: "success",
-      data
-    });
-  });
-});
-
-router.get("/get_town/:id", (req, res) => {
-  const city_id = req.params.id;
-
-  Town.findAll({
+router.get("/get_ilce/:id", (req, res) => {
+  Ilce.findAll({
     where: {
-      city_id
+      ilce_sehirkey: req.params.id
     }
   }).then(data => {
-    if (data.length < 1) {
-      res.json({
-        status: "error",
-        message: "no record found"
-      });
-
-      return;
-    }
     res.json({
       status: "success",
       data
     });
   });
 });
+
+router.get("/get_mahalle/:id", (req, res) => {
+  Mahalle.findAll({
+    where: {
+      mahalle_ilcekey: req.params.id
+    }
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
+  });
+});
+
+router.get("/get_sokak/:id", (req, res) => {
+  Sokak.findAll({
+    where: {
+      sokak_cadde_mahallekey: req.params.id
+    }
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
+  });
+});
+
 module.exports = router;

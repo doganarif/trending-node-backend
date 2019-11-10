@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
       },
       descriptiom: {
         type: Sequelize.TEXT
+      },
+      rating: {
+        type: Sequelize.TINYINT,
+        allowNull: true
       }
     },
     { freezeTableName: true }
