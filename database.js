@@ -92,16 +92,44 @@ Category.hasMany(Category, { foreignKey: "parent_id" });
 Category.hasMany(Company, { foreignKey: "parent_id" });
 Company.hasMany(Product, { foreignKey: "company_id" });
 
-Company.belongsTo(Sehir, { foreignKey: "sehir_id", allowNull: true });
-Company.belongsTo(Ilce, { foreignKey: "ilce_id", allowNull: true });
-Company.belongsTo(Mahalle, { foreignKey: "mahalle_id", allowNull: true });
-Company.belongsTo(Sokak, { foreignKey: "sokak_id", allowNull: true });
-
-Sehir.hasMany(Company, { foreignKey: "sehir_id" });
-Ilce.hasMany(Company, { foreignKey: "ilce_id" });
-Mahalle.hasMany(Company, { foreignKey: "mahalle_id" });
-Sokak.hasMany(Company, { foreignKey: "sokak_id" });
-
+Sehir.hasMany(Company, {
+  foreignKey: "sehirId",
+  sourceKey: "sehir_key",
+  allowNull: false
+});
+Company.belongsTo(Sehir, {
+  foreignKey: "sehirId",
+  targetKey: "sehir_key",
+  allowNull: false
+});
+Ilce.hasMany(Company, {
+  foreignKey: "ilceId",
+  sourceKey: "ilce_key",
+  allowNull: false
+});
+Company.belongsTo(Ilce, {
+  foreignKey: "ilceId",
+  targetKey: "ilce_key",
+  allowNull: false
+});
+Mahalle.hasMany(Company, {
+  foreignKey: "mahalleId",
+  sourceKey: "mahalle_key",
+  allowNull: false
+});
+Company.belongsTo(Mahalle, {
+  foreignKey: "mahalleId",
+  targetKey: "mahalle_key",
+  allowNull: false
+});
+Sokak.hasMany(Company, {
+  foreignKey: "sokakId",
+  allowNull: false
+});
+Company.belongsTo(Sokak, {
+  foreignKey: "sokakId",
+  allowNull: false
+});
 module.exports = {
   sequelize,
   Category,

@@ -1,7 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
-const { Category, Product, Card, Company, Photo, CompanyPhoto } = require("../database");
+const {
+  Category,
+  Product,
+  Card,
+  Company,
+  Photo,
+  CompanyPhoto
+} = require("../database");
 
 router.get("/", async function(req, res, next) {
   Category.findAll({
@@ -38,32 +45,176 @@ router.get("/", async function(req, res, next) {
     });
 });
 
-router.get("/products/:id", (req, res) => {
-  Company.findAll({
-    where: {
-      parent_id: req.params.id
-    },
-    include: [
-      {
-        model: Card,
-        as: "company_id"
-
-      },
-      {
-        model: CompanyPhoto
-      }
-    ]
-  })
-    .then(data => {
-      res.json({
-        status: "success",
-        data
-      });
+router.post("/products/:id", (req, res) => {
+  console.log(req.body.filter, "asdasd");
+  var where;
+  console.log("ASD", req.body.ilId);
+  if (req.body.sokakId) {
+    where = {
+      parent_id: req.params.id,
+      sokakId: req.body.sokakId
+    };
+  } else if (req.body.mahalleId) {
+    where = {
+      parent_id: req.params.id,
+      mahalleId: req.body.mahalleId
+    };
+  } else if (req.body.ilceId) {
+    where = {
+      parent_id: req.params.id,
+      ilceId: req.body.ilceId
+    };
+  } else if (req.body.ilId) {
+    where = {
+      parent_id: req.params.id,
+      sehirId: req.body.ilId
+    };
+  }
+  if (req.body.filter == 0) {
+    Company.findAll({
+      where,
+      include: [
+        {
+          model: Card,
+          as: "company_id"
+        },
+        {
+          model: CompanyPhoto
+        }
+      ]
     })
-    .catch(err => {
-      res.end();
-      console.log(err);
-    });
+      .then(data => {
+        res.json({
+          status: "success",
+          data
+        });
+      })
+      .catch(err => {
+        res.end();
+        console.log(err);
+      });
+  } else if (req.body.filter == 1) {
+    // FIYAT ARTAN
+    Company.findAll({
+      where,
+      order: [["price", "ASC"]],
+      include: [
+        {
+          model: Card,
+          as: "company_id"
+        },
+        {
+          model: CompanyPhoto
+        }
+      ]
+    })
+      .then(data => {
+        res.json({
+          status: "success",
+          data
+        });
+      })
+      .catch(err => {
+        res.end();
+        console.log(err);
+      });
+  } else if (req.body.filter == 2) {
+    //Fiyat Azalan
+    Company.findAll({
+      where,
+      order: [["price", "DESC"]],
+      include: [
+        {
+          model: Card,
+          as: "company_id"
+        },
+        {
+          model: CompanyPhoto
+        }
+      ]
+    })
+      .then(data => {
+        res.json({
+          status: "success",
+          data
+        });
+      })
+      .catch(err => {
+        res.end();
+        console.log(err);
+      });
+  } else if (req.body.filter == 3) {
+    // Yildiz Artan
+    Company.findAll({
+      where,
+      include: [
+        {
+          model: Card,
+          as: "company_id"
+        },
+        {
+          model: CompanyPhoto
+        }
+      ]
+    })
+      .then(data => {
+        res.json({
+          status: "success",
+          data
+        });
+      })
+      .catch(err => {
+        res.end();
+        console.log(err);
+      });
+  } else if (req.body.filter == 4) {
+    //Yildiz Azalan
+    Company.findAll({
+      where,
+      include: [
+        {
+          model: Card,
+          as: "company_id"
+        },
+        {
+          model: CompanyPhoto
+        }
+      ]
+    })
+      .then(data => {
+        res.json({
+          status: "success",
+          data
+        });
+      })
+      .catch(err => {
+        res.end();
+        console.log(err);
+      });
+  } else {
+    Company.findAll({
+      where,
+      include: [
+        {
+          model: Card,
+          as: "company_id"
+        },
+        {
+          model: CompanyPhoto
+        }
+      ]
+    })
+      .then(data => {
+        res.json({
+          status: "success",
+          data
+        });
+      })
+      .catch(err => {
+        res.end();
+        console.log(err);
+      });
+  }
 });
 
 router.get("/detail/:id", (req, res) => {

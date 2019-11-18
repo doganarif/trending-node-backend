@@ -8,6 +8,12 @@ module.exports = function(sequelize, DataTypes) {
       },
       password: {
         type: Sequelize.STRING
+      },
+      email: {
+        type: Sequelize.STRING
+      },
+      user_key: {
+        type: Sequelize.STRING
       }
     },
     { freezeTableName: true }
