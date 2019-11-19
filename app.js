@@ -5,6 +5,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var database = require("./database");
 
+// Username: admin
+// Password: School12A.
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var categoryRouter = require("./routes/category");
