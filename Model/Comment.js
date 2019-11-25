@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
   return (Comment = sequelize.define(
-    "comment",
+    "Yorum",
     {
       title: {
         type: Sequelize.STRING

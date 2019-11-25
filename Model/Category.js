@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
   return (Category = sequelize.define(
-    "category",
+    "Kategori",
     {
       title: {
         type: Sequelize.STRING

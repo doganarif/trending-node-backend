@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 module.exports = function(sequelize, DataTypes) {
   return (User = sequelize.define(
-    "user",
+    "Kullanici",
     {
       username: {
         type: Sequelize.STRING
