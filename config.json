@@ -1,13 +1,15 @@
 {
-  "mysql": {
-    "database": "school_system",
-    "user": "root",
-    "password": "afoafoafo1A."
-  },
-  "server": {
-    "port": 3001
-  },
-  "app": {
-    "languages": true
-  }
+    "mysql": {
+        "database": "school_system",
+        "user": "root",
+        "password": "afoafoafo1A."
+    },
+    "server": {
+        "port": 3001
+    },
+    "app": {
+        "layouts": true,
+        "themes": true,
+        "languages": true
+    }
 }

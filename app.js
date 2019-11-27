@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var database = require("./database");
+var cors = require('cors')
 
 // Username: admin
 // Password: School12A.
@@ -19,6 +20,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 var app = express();
+
+
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
