@@ -71,7 +71,6 @@ router.get("/featured", (req, res) => {
     include: [
       {
         model: CompanyPhoto
-        // as: "company_id"
       }
     ]
   })

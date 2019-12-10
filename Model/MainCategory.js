@@ -10,6 +10,6 @@ module.exports = function(sequelize, DataTypes) {
         type: Sequelize.TEXT
       }
     },
-    { freezeTableName: true }
+    { freezeTableName: true, timestamps: false }
   ));
 };
