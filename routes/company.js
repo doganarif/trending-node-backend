@@ -1,10 +1,18 @@
 var express = require("express");
 var router = express.Router();
-var { Company, Card, Comment, CompanyPhoto, User } = require("../database");
+var {
+  Company,
+  Card,
+  Comment,
+  Sehir,
+  CompanyPhoto,
+  User,
+  Category,
+  Ilce
+} = require("../database");
 const Passport = require("passport");
 const BearerStrategy = require("passport-http-bearer");
 const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
 
 // ** PASSPORT **
 
@@ -23,8 +31,86 @@ Passport.use(
 );
 // ** PASSPORT **
 
+
 router.get("/", (req, res) => {
-  res.render("index", { title: "Express" });
+  Company.findAll({
+    attributes: [
+      "id",
+      ["title", "Kurum adı"],
+      ["phone", "Telefon"],
+      "website",
+      ["address", "Adres"],
+      ["description", "Aciklama"],
+      ["is_featured", "Öne Çıkarılmış"]
+    ],
+    include: [
+      {
+        model: Sehir,
+        attributes: [["sehir_title", ""]],
+        // through: { attributes: ["sehir_title"] }
+        nested: false
+      },
+      {
+        model: Ilce,
+        attributes: [["ilce_title", ""]],
+        // through: { attributes: ["sehir_title"] }
+        nested: false
+      }
+    ]
+  })
+    .then(data => {
+      res.json({
+        status: "success",
+        data
+      });
+    })
+    .catch(e => {
+      console.log(e);
+      res.end();
+    });
+});
+
+
+
+router.post("/add_company", (req, res) => {
+  // console.log(req.body);
+  const {
+    name,
+    kategori,
+    il,
+    ilce,
+    description,
+    address,
+    featured,
+    phone,
+    photo,
+    website
+  } = req.body;
+  const is_featured = featured[0];
+  console.log(website, "ASDASDDSA");
+  Company.create({
+    title: name,
+    phone,
+    address,
+    description,
+    is_featured,
+    parent_id: 1,
+    sehirId: 34,
+    ilceId: 2004,
+    photo,
+    website
+  })
+    .then(data => {
+      res.json({
+        status: "success"
+      });
+    })
+    .catch(e => {
+      console.log(e);
+      res.json({
+        status: "error"
+      });
+    });
 });
 
 // router.get("/:id", (req, res) => {

@@ -10,6 +10,45 @@ const {
   CompanyPhoto
 } = require("../database");
 
+router.get("/get_all_category", (req, res) => {
+  Category.findAll({
+    attributes: [
+      ["title", "Kategori Başlığı"],
+      ["parent_id", "Ust Kategori"]
+    ]
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
+  });
+});
+
+router.post("/add_category", (req, res) => {
+  const { name, kategori } = req.body;
+  Category.create({
+    title: name,
+    parent_id: kategori
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
+  });
+});
+router.get("/get_all_lure", (req, res) => {
+  Category.findAll({
+    attributes: [
+      ["title", "text"],
+      ["id", "value"]
+    ]
+  }).then(data => {
+    res.json({
+      status: "success",
+      data
+    });
+  });
+});
 router.get("/", async function(req, res, next) {
   Category.findAll({
     where: {

@@ -6,7 +6,7 @@ var logger = require("morgan");
 var database = require("./database");
 var cors = require('cors')
 
-// Username: admin
+// Username: root
 // Password: School12A.
 
 var indexRouter = require("./routes/index");

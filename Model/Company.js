@@ -9,6 +9,14 @@ module.exports = function(sequelize, DataTypes) {
       phone: {
         type: Sequelize.STRING
       },
+      website: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
+      photo: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
       address: {
         type: Sequelize.STRING
       },
@@ -26,6 +34,6 @@ module.exports = function(sequelize, DataTypes) {
         type: Sequelize.STRING
       }
     },
-    { freezeTableName: true, timestamps: false  }
+    { freezeTableName: true, timestamps: false }
   ));
 };
