@@ -31,7 +31,6 @@ Passport.use(
 );
 // ** PASSPORT **
 
-
 router.get("/", (req, res) => {
   Company.findAll({
     attributes: [
@@ -43,6 +42,7 @@ router.get("/", (req, res) => {
       ["description", "Aciklama"],
       ["is_featured", "Öne Çıkarılmış"]
     ],
+    limit: 300,
     include: [
       {
         model: Sehir,
@@ -69,8 +69,6 @@ router.get("/", (req, res) => {
       res.end();
     });
 });
-
-
 
 router.post("/add_company", (req, res) => {
   // console.log(req.body);
