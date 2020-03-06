@@ -47,7 +47,10 @@ router.post("/update", (req, res) => {
         website: req.body.website,
         address: req.body.address,
         description: req.body.description,
-        is_featured: req.body.is_featured
+        is_featured: req.body.featured,
+        parent_id: req.body.kategori,
+        ilceId: req.body.ilce,
+        sehirId: req.body.il
       })
       .then(e => {
         res.json({
@@ -74,7 +77,10 @@ router.get("/", (req, res) => {
       "website",
       "address",
       "description",
-      "is_featured"
+      "is_featured",
+      "parent_id",
+      "sehirId",
+      "ilceId"
     ],
     limit: 300,
     include: [
