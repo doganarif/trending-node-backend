@@ -33,8 +33,8 @@ Passport.use(
 
 router.post("/update", (req, res) => {
   const company_id = req.body.id;
-
-  Company.findAll({
+  console.log(req.body, "BODY");
+  Company.findOne({
     where: {
       id: company_id
     }
