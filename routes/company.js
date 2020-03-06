@@ -152,6 +152,17 @@ router.post("/add_company", (req, res) => {
     });
 });
 
+router.get("/cards", (req, res) => {
+  Card.findAll({
+    attributes: ["id", "title"]
+  }).then(r => {
+    res.json({
+      status: "succes",
+      data: r
+    });
+  });
+});
+
 router.get("/:id", (req, res) => {
   Company.findOne({
     where: {
