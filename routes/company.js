@@ -34,34 +34,37 @@ Passport.use(
 router.post("/update", (req, res) => {
   const company_id = req.body.id;
 
-  Company.update(
-    {
-      where: {
-        id: company_id
-      }
-    },
-    {
-      title: req.body.title,
-      phone: req.body.phone,
-      photo: req.body.photo,
-      website: req.body.website,
-      address: req.body.address,
-      description: req.body.description,
-      is_featured: req.body.featured,
-      parent_id: req.body.kategori,
-      ilceId: req.body.ilce,
-      sehirId: req.body.il
+  Company.findAll({
+    where: {
+      id: company_id
     }
-  )
-    .then(e => {
-      res.json({
-        status: "success",
-        message: e
+  }).then(comp => {
+    comp
+      .update({
+        title: req.body.title,
+        phone: req.body.phone,
+        photo: req.body.photo,
+        website: req.body.website,
+        address: req.body.address,
+        description: req.body.description,
+        is_featured: req.body.featured,
+        parent_id: req.body.kategori,
+        ilceId: req.body.ilce,
+        sehirId: req.body.il
+      })
+      .then(e => {
+        res.json({
+          status: "success",
+          data: e
+        });
+      })
+      .catch(e => {
+        res.json({
+          status: "error",
+          data: e
+        });
       });
-    })
-    .catch(e => {
-      console.log(e);
-    });
+  });
 });
 
 router.get("/", (req, res) => {
