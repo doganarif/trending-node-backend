@@ -35,7 +35,7 @@ router.get("/", (req, res) => {
   Company.findAll({
     attributes: [
       "id",
-      ["title", "kurum_adı"],
+      ["title", "kurum_adi"],
       ["phone", "Telefon"],
       "website",
       ["address", "Adres"],
