@@ -126,9 +126,9 @@ router.post("/add_company", (req, res) => {
     address,
     description,
     is_featured,
-    parent_id: 1,
-    sehirId: 34,
-    ilceId: 2004,
+    parent_id: kategori,
+    sehirId: il,
+    ilceId: ilce,
     photo,
     website
   })
@@ -144,24 +144,6 @@ router.post("/add_company", (req, res) => {
       });
     });
 });
-
-// router.get("/:id", (req, res) => {
-//   Company.findAll({
-//     where: {
-//       id: req.params.id
-//     },
-//     include: [
-//       {
-//         model: Product
-//       }
-//     ]
-//   }).then(data => {
-//     res.json({
-//       status: "success",
-//       data
-//     });
-//   });
-// });
 
 router.get("/:id", (req, res) => {
   Company.findOne({
