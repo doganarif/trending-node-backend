@@ -142,6 +142,7 @@ router.post("/add_company", (req, res) => {
     website
   })
     .then(data => {
+      console.log(cards, "CARDS");
       cards.forEach(e => {
         CardProduct.create({
           FirmaId: data.id,
