@@ -8,7 +8,8 @@ var {
   CompanyPhoto,
   User,
   Category,
-  Ilce
+  Ilce,
+  CardProduct
 } = require("../database");
 const Passport = require("passport");
 const BearerStrategy = require("passport-http-bearer");
@@ -113,6 +114,7 @@ router.get("/", (req, res) => {
 
 router.post("/add_company", (req, res) => {
   // console.log(req.body);
+  const cards = req.body.values;
   const {
     name,
     kategori,
@@ -140,6 +142,12 @@ router.post("/add_company", (req, res) => {
     website
   })
     .then(data => {
+      array.forEach(e => {
+        CardProduct.create({
+          FirmaId: data.id,
+          KartId: e.id
+        });
+      });
       res.json({
         status: "success"
       });
