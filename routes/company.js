@@ -37,6 +37,7 @@ router.get("/", (req, res) => {
       "id",
       ["title", "kurum_adi"],
       ["phone", "Telefon"],
+      "photo",
       "website",
       ["address", "Adres"],
       ["description", "Aciklama"],
