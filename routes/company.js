@@ -31,6 +31,39 @@ Passport.use(
 );
 // ** PASSPORT **
 
+router.post("/update", (req, res) => {
+  const company_id = req.body.id;
+
+  Company.findAll({
+    where: {
+      id: company_id
+    }
+  }).then(comp => {
+    comp
+      .update({
+        title: req.body.title,
+        phone: req.body.phone,
+        photo: req.body.photo,
+        website: req.body.website,
+        address: req.body.address,
+        description: req.body.description,
+        is_featured: req.body.is_featured
+      })
+      .then(e => {
+        res.json({
+          status: "success",
+          data: e
+        });
+      })
+      .catch(e => {
+        res.json({
+          status: "error",
+          data: e
+        });
+      });
+  });
+});
+
 router.get("/", (req, res) => {
   Company.findAll({
     attributes: [
@@ -39,7 +72,7 @@ router.get("/", (req, res) => {
       "phone",
       "photo",
       "website",
-      ["address", "Adres"],
+      "address",
       "description",
       "is_featured"
     ],
