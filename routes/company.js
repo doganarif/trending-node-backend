@@ -114,7 +114,7 @@ router.get("/", (req, res) => {
 
 router.post("/add_company", (req, res) => {
   // console.log(req.body);
-  const cards = req.body.values;
+  const cards = req.body.value;
   const {
     name,
     kategori,
