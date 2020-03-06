@@ -36,12 +36,12 @@ router.get("/", (req, res) => {
     attributes: [
       "id",
       ["title", "kurum_adi"],
-      ["phone", "Telefon"],
+      "phone",
       "photo",
       "website",
       ["address", "Adres"],
-      ["description", "Aciklama"],
-      ["is_featured", "Öne Çıkarılmış"]
+      "description",
+      "is_featured"
     ],
     limit: 300,
     include: [
