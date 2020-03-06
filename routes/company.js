@@ -39,6 +39,7 @@ router.post("/update", (req, res) => {
       id: company_id
     }
   }).then(comp => {
+    console.log("ASDSDA", comp, "SADSD");
     comp
       .update({
         title: req.body.title,
